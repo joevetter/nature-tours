@@ -2,6 +2,8 @@
 namespace Acme\Controllers;
 
 use Acme\Models\User;
+use Acme\Models\Page;
+use Acme\Auth\LoggedIn;
 
 class PageController extends BaseController
 {
@@ -9,12 +11,40 @@ class PageController extends BaseController
   public function getShowHomePage()
   {
     #require_once(__DIR__ . "/../views/home.php");
-    echo $this->twig->render('home.html');
+    echo $this->twig->render('home.html',[
+      'session' => LoggedIn::user()]);
   }
 
   public function getShowPage()
   {
-    echo "generic page";
+    $title = '';
+    $content = '';
+
+    # extract page name from url
+    $uri = explode("/", $_SERVER['REQUEST_URI']);
+    $target = $uri[1];
+    # find matching page in the db
+    $page = Page::where('slug', '=', $target)->get();
+    # look up page content
+    foreach($page as $row)
+    {
+      $title = $row->title;
+      $content = $row->content;
+    }
+
+    if(empty($title))
+    {
+      header("HTTP/1.0 404 Not Found");
+      header("Location: /page-not-found");
+      exit();
+    }
+    # pass content to twig te
+    echo $this->twig->render('genericPage.html',[
+      'session' => LoggedIn::user(),
+      'title'   => $title,
+      'content' => $content]);
+    # render template
+
   }
 
   public function getTestDB()

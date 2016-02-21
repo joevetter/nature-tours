@@ -2,6 +2,7 @@
 namespace Acme\Controllers;
 
 use Acme\Models\User;
+use Acme\Auth\LoggedIn;
 use Acme\Validation\Validator;
 
 class RegisterController extends BaseController
@@ -10,7 +11,8 @@ class RegisterController extends BaseController
   public function getShowRegisterPage()
   {
     #require_once(__DIR__ . "/../views/register.php");
-    echo $this->twig->render('register.html');
+    echo $this->twig->render('register.html',[
+      'session' => LoggedIn::user()]);
   }
 
   public function postShowRegisterPage()
@@ -31,7 +33,10 @@ class RegisterController extends BaseController
     {
       #$_SESSION['msg'] = $errors;
       #header("Location: /register");
-      echo $this->twig->render('register.html', ['errors' => $errors]);
+      echo $this->twig->render('register.html', [
+        'session' => LoggedIn::user(),
+        'notification' => $errors,
+        'type' => 'error']);
       exit();
     }
 
@@ -44,12 +49,6 @@ class RegisterController extends BaseController
     $user->save();
 
     echo "posted !";
-  }
-
-  public function getShowLoginPage()
-  {
-    #require_once(__DIR__ . "/../views/login.html");
-    echo $this->twig->render('login.html');
   }
 
 }

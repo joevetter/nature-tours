@@ -3,6 +3,7 @@ namespace Acme\Controllers;
 
 #use Respect\Validation\Validator as Validator;
 use Acme\Validation\Validator;
+use Acme\Auth\LoggedIn;
 
 class BaseController
 {
