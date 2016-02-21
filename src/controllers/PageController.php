@@ -12,6 +12,11 @@ class PageController extends BaseController
     echo $this->twig->render('home.html');
   }
 
+  public function getShowPage()
+  {
+    echo "generic page";
+  }
+
   public function getTestDB()
   {
     try {

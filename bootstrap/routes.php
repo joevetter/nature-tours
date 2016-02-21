@@ -11,3 +11,5 @@ $router->map('GET', '/login', 'Acme\Controllers\RegisterController@getShowLoginP
 $router->map('GET', '/testdb', 'Acme\Controllers\PageController@getTestDB', 'testdb');
 
 $router->map('GET', '/testorm', 'Acme\Controllers\PageController@getTestORM', 'testorm');
+
+$router->map('GET', '/about', 'Acme\Controllers\PageController@getShowPage', 'generic_page');

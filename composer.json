@@ -12,7 +12,8 @@
         "altorouter/altorouter": "^1.1",
         "vlucas/phpdotenv": "^2.2",
         "respect/validation": "^1.0",
-        "twig/twig": "^1.24"
+        "twig/twig": "^1.24",
+        "robmorgan/phinx": "0.5.1"
     },
     "autoload": {
       "psr-4": { "Acme\\": "src/"}
